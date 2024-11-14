@@ -24,7 +24,8 @@
                     <div class="form-group col-md-3">
                         <label for="is_active">وضعیت</label>
                         <select id="is_active" name="is_active" class="form-control">
-                            <option value="1" {{ $brand->getRawOriginal('is_active') == 1 ? 'selected' : '' }}>فعال</option>
+                            <option value="1" {{ $brand->getRawOriginal('is_active') == 1 ? 'selected' : '' }}>فعال
+                            </option>
                             <option value="0" {{ $brand->getRawOriginal('is_active') == 0 ? 'selected' : '' }}>غیرفعال
                             </option>
                         </select>
@@ -32,8 +33,8 @@
 
                 </div>
 
-                <button type="submit" class="btn btn-outline-primary mt-5">ثبت</button>
-                <a href="{{ route('admin.brands.index') }}" class="btn btn-dark mt-5 mr-3">ویرایش</a>
+                <button type="submit" class="btn btn-outline-primary mt-5">ویرایش</button>
+                <a href="{{ route('admin.brands.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
             </form>
         </div>
     </div>

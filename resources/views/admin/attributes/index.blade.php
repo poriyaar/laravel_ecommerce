@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'index brand')
+@section('title', 'index attributes')
 
 @section('content')
     <!-- Content Row -->
@@ -9,11 +9,11 @@
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-12 col-md-12 mb-4 p-md-5 bg-white">
             <div class="d-flex justify-content-between mb-4">
-                <h5 class="font-weight-bold">لیست برند ({{ $brands->total() }})</h5>
+                <h5 class="font-weight-bold">لیست ویژگی ها ({{ $attributes->total() }})</h5>
 
-                <a class="btn btn-outline-primary" href="{{ route('admin.brands.create') }}">
+                <a class="btn btn-outline-primary" href="{{ route('admin.attributes.create') }}">
 
-                    <i class="fa fa-plus">ایجاد برند</i>
+                    <i class="fa fa-plus">ایجاد ویژگی</i>
 
                 </a>
 
@@ -27,31 +27,27 @@
                         <tr>
                             <th>#</th>
                             <th>نام</th>
-                            <th>وضعیت</th>
                             <th>عملیات</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
-                        @foreach ($brands as $key => $brand)
+                        @foreach ($attributes as $key => $attribute)
                             <tr>
                                 <th>
-                                    {{ $brands->firstItem() + $key }}
+                                    {{ $attributes->firstItem() + $key }}
                                 </th>
                                 <th>
-                                    {{ $brand->name }}
-                                </th>
-                                <th>
-                                    <span class="{{ $brand->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">
-                                        {{ $brand->is_active }}
-                                    </span>
+                                    {{ $attribute->name }}
                                 </th>
                                 <th>
                                     <a class="btn btn-sm btn-outline-dark"
-                                        href="{{ route('admin.brands.show', ['brand' => $brand->id]) }}"> نمایش</a>
+                                        href="{{ route('admin.attributes.show', ['attribute' => $attribute->id]) }}">
+                                        نمایش</a>
                                     <a class="btn btn-sm btn-outline-info mr-3"
-                                        href="{{ route('admin.brands.edit', ['brand' => $brand->id]) }}"> ویرایش</a>
+                                        href="{{ route('admin.attributes.edit', ['attribute' => $attribute->id]) }}">
+                                        ویرایش</a>
                                 </th>
                             </tr>
                         @endforeach

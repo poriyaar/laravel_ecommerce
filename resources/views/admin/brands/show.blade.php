@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'create show')
+@section('title', 'brand show')
 
 @section('content')
     <!-- Content Row -->
