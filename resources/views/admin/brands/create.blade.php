@@ -18,7 +18,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="name">نام</label>
-                        <input type="text" id="name" name="name" class="form-control">
+                        <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" >
                     </div>
 
                     <div class="form-group col-md-3">
