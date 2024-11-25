@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="primary_image">انتخاب تصویر</label>
+                        <label for="images">انتخاب تصویر</label>
                         <div class="custom-file">
                             <input type="file" name="images[]" multiple class="custom-file-input" id="images">
                             <label class="custom-file-label" for="images">انتخاب فایل ها</label>

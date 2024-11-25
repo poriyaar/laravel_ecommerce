@@ -24,11 +24,18 @@ if (!function_exists('generateProductImageLink')) {
     }
 }
 
+if (!function_exists('generateBannerImageLink')) {
+    function generateBannerImageLink($imageName)
+    {
+        return url(env('BANNER_IMAGES_UPLOAD_PATH') . $imageName);
+    }
+}
+
 if (!function_exists('convertShamsiToGregorianDate')) {
     function convertShamsiToGregorianDate($date)
     {
         if (!is_null($date)) {
-            
+
             $pattern = "/[-\s]/";
 
             $shamsiDateSplit = preg_split($pattern, $date);
