@@ -28,8 +28,8 @@ return new class extends Migration
             $table->string('sku')->nullable();
 
             $table->unsignedInteger('sale_price')->nullable();
-            $table->timestamp('data_on_sale_from')->nullable();
-            $table->timestamp('data_on_sale_to')->nullable();
+            $table->timestamp('date_on_sale_from')->nullable();
+            $table->timestamp('date_on_sale_to')->nullable();
 
 
 

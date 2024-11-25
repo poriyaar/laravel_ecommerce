@@ -58,6 +58,10 @@
 
             </div>
 
+            <div class="d-flex justify-content-center mt-5">
+                {{ $tags->render() }}
+            </div>
+
         </div>
 
     </div>

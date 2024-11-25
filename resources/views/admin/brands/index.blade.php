@@ -62,6 +62,10 @@
 
             </div>
 
+            <div class="d-flex justify-content-center mt-5">
+                {{ $brands->links() }}
+            </div>
+
         </div>
 
     </div>

@@ -48,7 +48,7 @@
 
 
                     <div class="form-group col-md-3">
-                        <label for="is_active">ویژگی</label>
+                        <label for="attributeSelect">ویژگی</label>
                         <select id="attributeSelect" name="attribute_ids[]" class="form-control" multiple
                             data-live-search="true">
                             @foreach ($attributes as $attribute)

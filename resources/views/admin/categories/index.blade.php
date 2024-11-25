@@ -79,6 +79,10 @@
 
             </div>
 
+            <div class="d-flex justify-content-center mt-5">
+                {{ $categories->render() }}
+            </div>
+
         </div>
 
     </div>
