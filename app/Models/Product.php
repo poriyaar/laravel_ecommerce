@@ -28,9 +28,26 @@ class Product extends Model
         ];
     }
 
+    protected $appends = ['quantity_check', 'sale_check' , 'price_check'];
+
     public function getIsActiveAttribute($is_active)
     {
         return $is_active ? 'فعال' : 'غیر فعال';
+    }
+
+    public function getQuantityCheckAttribute()
+    {
+        return $this->variations()->where('quantity', '>', 0)->first() ?? 0;
+    }
+
+    public function getSaleCheckAttribute()
+    {
+        return $this->variations()->where('quantity', '>', 0)->whereNotNull('sale_price')->where('date_on_sale_from', '<', now())->where('date_on_sale_to', '>', now())->orderBy('sale_price')->first() ?? false;
+    }
+
+    public function getPriceCheckAttribute()
+    {
+        return $this->variations()->where('quantity', '>', 0)->orderBy('price')->first() ?? false;
     }
 
     public function tags()
@@ -61,5 +78,10 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function rates()
+    {
+        return $this->hasMany(ProductRate::class);
     }
 }
