@@ -46,7 +46,7 @@
                 @foreach ($indexTopBanners as $indexTopBanner)
                     <div class="col-lg-4 col-md-4">
                         <div class="single-banner mb-30 scroll-zoom">
-                            <a href="#"><img class="animated"
+                            <a href="{{ $indexTopBanner->button_link }}"><img class="animated"
                                     src="{{ generateBannerImageLink($indexTopBanner->image) }}"
                                     alt="{{ $indexTopBanner->image }}" /></a>
                             <div class="banner-content-2 banner-position-5">
@@ -113,7 +113,7 @@
                             <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                 <div class="ht-product-inner">
                                     <div class="ht-product-image-wrap">
-                                        <a href="product-details.html" class="ht-product-image">
+                                        <a href="{{ route('home.product.show' , $product) }}" class="ht-product-image">
                                             <img src="{{ generateProductImageLink($product->primary_image) }}"
                                                 alt="{{ $product->name }}" />
                                         </a>
@@ -193,13 +193,6 @@
 
 
 
-
-
-
-
-
-
-
     <div class="testimonial-area pt-80 pb-95 section-margin-1"
         style="background-image: url({{ asset('images/home/bg-1.jpg') }});">
         <div class="container">
@@ -244,9 +237,6 @@
         </div>
     </div>
 
-
-
-
     <div class="banner-area pt-80 pb-120">
         <div class="container">
             <div class="row">
@@ -254,7 +244,7 @@
                 @foreach ($bottomBanners as $banner)
                     <div class="col-lg-6 col-md-6 text-right">
                         <div class="single-banner mb-30 scroll-zoom">
-                            <a href="product-details.html"><img src="{{ generateBannerImageLink($banner->image) }}"
+                            <a href="{{ $banner->button_link }}"><img src="{{ generateBannerImageLink($banner->image) }}"
                                     alt="{{ $banner->image }}" /></a>
                             <div class="banner-content  {{ $loop->last ? 'banner-position-4' : 'banner-position-3' }}">
                                 <h3>{{ $banner->title }}</h3>
@@ -268,8 +258,6 @@
             </div>
         </div>
     </div>
-
-    
 
 
     <div class="feature-area" style="direction: rtl;">
@@ -311,8 +299,6 @@
             </div>
         </div>
     </div>
-
-
 
     <!-- Modal -->
 
@@ -426,9 +412,6 @@
                                             <p class="text-white">ناموجود</p>
                                         </div>
                                     @endif
-
-
-
 
                                     <div class="pro-details-meta">
                                         <span>دسته بندی :</span>
