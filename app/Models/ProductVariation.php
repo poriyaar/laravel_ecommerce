@@ -8,8 +8,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductVariation extends Model
 {
-    use HasFactory , SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'product_variations';
     protected $guarded = [];
+    protected $append = ['is_sale'];
+
+
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class);
+    }
+
+
+    public function getIsSaleAttribute()
+    {
+        return ($this->sale_price != null && $this->date_on_sale_from < now() && $this->date_on_sale_to > now() ? true : false);
+    }
 }
