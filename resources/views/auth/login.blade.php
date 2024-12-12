@@ -65,6 +65,10 @@
                                                     class="btn btn-google btn-block mt-4">
                                                     <i class="sli sli-social-google"></i> ورود با حساب گوگل
                                                 </a>
+                                                <a href="{{ route('otp.login') }}"
+                                                    class="btn btn-google btn-block mt-4">
+                                                    <i class="sli sli-social-dropbox"></i> ورود با شماره تلفن
+                                                </a>
                                             </div>
                                         </form>
                                     </div>

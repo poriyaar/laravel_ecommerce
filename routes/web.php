@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthController;
@@ -13,6 +14,8 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
+use App\Models\User;
+use App\Notifications\OTPSms;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,10 +62,21 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.product.show');
-Route::get('/login/{provider}', [AuthController::class , 'redirectToProvider'])->name('provider.login');
-Route::get('/login/{provider}/callback', [AuthController::class , 'handelProviderCallback']);
+Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
+Route::get('/login/{provider}/callback', [AuthController::class, 'handelProviderCallback']);
+// OTP
+Route::any('/loginotp', [AuthController::class, 'login'])->name('otp.login');
+Route::post('/checkOTP', [AuthController::class, 'checkOTP'])->name('check.otp');
+Route::post('/resendOTP', [AuthController::class, 'resendOTP'])->name('resend.otp');
 
 
-Route::get('/test', function(){
+Route::get('/test', function () {
     auth()->logout();
+
+
+    // $user = User::find(1);
+
+    // $user->notify(new OTPSms(12345));
+
+
 });

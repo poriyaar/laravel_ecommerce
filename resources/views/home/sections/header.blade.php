@@ -90,7 +90,7 @@
 
                                         <div class="shopping-cart-img">
                                             <a href="#"><img alt=""
-                                                    src="assets/img/cart/cart-1.svg" /></a>
+                                                    src="#" /></a>
                                             <div class="item-close">
                                                 <a href="#"><i class="sli sli-close"></i></a>
                                             </div>
@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="shopping-cart-img">
                                             <a href="#"><img alt=""
-                                                    src="assets/img/cart/cart-2.svg" /></a>
+                                                    src="#" /></a>
                                             <div class="item-close">
                                                 <a href="#"><i class="sli sli-close"></i></a>
                                             </div>
@@ -213,7 +213,7 @@
 
                                         <div class="shopping-cart-img">
                                             <a href="#"><img alt=""
-                                                    src="assets/img/cart/cart-1.svg" /></a>
+                                                    src="#" /></a>
                                             <div class="item-close">
                                                 <a href="#"><i class="sli sli-close"></i></a>
                                             </div>
@@ -226,7 +226,7 @@
                                         </div>
                                         <div class="shopping-cart-img">
                                             <a href="#"><img alt=""
-                                                    src="assets/img/cart/cart-2.svg" /></a>
+                                                    src="#" /></a>
                                             <div class="item-close">
                                                 <a href="#"><i class="sli sli-close"></i></a>
                                             </div>
