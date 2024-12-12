@@ -32,11 +32,14 @@
                             <ul class="dropdown">
                                 @foreach ($parentCategories as $parentCategory)
                                     <li class="menu-item-has-children">
-                                        <a href="{{ route('home.categories.show', $parentCategory->slug) }}">{{ $parentCategory->name }}</a>
+                                        <a
+                                            href="{{ route('home.categories.show', $parentCategory->slug) }}">{{ $parentCategory->name }}</a>
                                         <ul class="dropdown">
 
                                             @foreach ($parentCategory->children as $childCategory)
-                                                <li><a href="{{ route('home.categories.show', $childCategory->slug) }}">{{ $childCategory->name }}</a></li>
+                                                <li><a
+                                                        href="{{ route('home.categories.show', $childCategory->slug) }}">{{ $childCategory->name }}</a>
+                                                </li>
                                             @endforeach
 
                                         </ul>
@@ -59,11 +62,14 @@
         <div class="mobile-curr-lang-wrap">
             <div class="single-mobile-curr-lang">
                 <ul class="text-right">
-                    <li class="my-3"><a href="login.html"> ورود </a></li>
-                    <li class="my-3">
-                        <a href="register.html"> ایجاد حساب </a>
-                    </li>
-                    <li class="my-3"><a href="my-account.html"> پروفایل </a></li>
+                    @auth
+                        <li class="my-3"><a href="my-account.html"> پروفایل </a></li>
+                    @else
+                        <li class="my-3"><a href="{{ route('login') }}"> ورود </a></li>
+                        <li class="my-3">
+                            <a href="{{ route('register') }}"> ایجاد حساب </a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>
