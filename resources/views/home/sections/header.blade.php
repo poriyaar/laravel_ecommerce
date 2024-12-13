@@ -139,7 +139,7 @@
                             <div class="setting-content">
                                 <ul class="text-right">
                                     @auth
-                                        <li><a href="my-account.html">پروفایل</a></li>
+                                        <li><a href="{{ route('home.user.profile') }}">پروفایل</a></li>
                                     @else
                                         <li><a href="{{ route('login') }}">ورود</a></li>
                                         <li>

@@ -63,7 +63,7 @@
             <div class="single-mobile-curr-lang">
                 <ul class="text-right">
                     @auth
-                        <li class="my-3"><a href="my-account.html"> پروفایل </a></li>
+                        <li class="my-3"><a href="{{ route('home.user.profile') }}"> پروفایل </a></li>
                     @else
                         <li class="my-3"><a href="{{ route('login') }}"> ورود </a></li>
                         <li class="my-3">

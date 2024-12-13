@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\User;
 use App\Models\Product;
+use App\Notifications\OTPSms;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
@@ -8,14 +10,15 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Home\UserProfileController;
 use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
-use App\Models\User;
-use App\Notifications\OTPSms;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +45,10 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('tags', TagController::class);
     Route::resource('products', ProductController::class);
     Route::resource('banners', BannerController::class);
+    Route::resource('comments', CommentController::class);
 
+    // change comment approved
+    Route::get('/comments/{comment}/changeStatus', [CommentController::class, 'changeStatus'])->name('comment.change.status');
     // get category Attribute Ajax
     Route::get('/category-attributes/{category}', [CategoryController::class, 'getCategoryAttributes']);
 
@@ -62,12 +68,22 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.product.show');
+Route::post('/comments/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
+
+
+// login
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
 Route::get('/login/{provider}/callback', [AuthController::class, 'handelProviderCallback']);
 // OTP
 Route::any('/loginotp', [AuthController::class, 'login'])->name('otp.login');
 Route::post('/checkOTP', [AuthController::class, 'checkOTP'])->name('check.otp');
 Route::post('/resendOTP', [AuthController::class, 'resendOTP'])->name('resend.otp');
+
+
+Route::prefix('profile')->name('home.')->group(function() {
+    Route::get('/' , [UserProfileController::class , 'index'])->name('user.profile');
+    Route::get('/comments' , [HomeCommentController::class , 'usersProfileIndex'])->name('user.profile.comments');
+});
 
 
 Route::get('/test', function () {
