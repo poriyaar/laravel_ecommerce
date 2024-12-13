@@ -113,7 +113,7 @@
                             <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                 <div class="ht-product-inner">
                                     <div class="ht-product-image-wrap">
-                                        <a href="{{ route('home.product.show' , $product) }}" class="ht-product-image">
+                                        <a href="{{ route('home.product.show', $product) }}" class="ht-product-image">
                                             <img src="{{ generateProductImageLink($product->primary_image) }}"
                                                 alt="{{ $product->name }}" />
                                         </a>
@@ -244,7 +244,8 @@
                 @foreach ($bottomBanners as $banner)
                     <div class="col-lg-6 col-md-6 text-right">
                         <div class="single-banner mb-30 scroll-zoom">
-                            <a href="{{ $banner->button_link }}"><img src="{{ generateBannerImageLink($banner->image) }}"
+                            <a href="{{ $banner->button_link }}"><img
+                                    src="{{ generateBannerImageLink($banner->image) }}"
                                     alt="{{ $banner->image }}" /></a>
                             <div class="banner-content  {{ $loop->last ? 'banner-position-4' : 'banner-position-3' }}">
                                 <h3>{{ $banner->title }}</h3>
@@ -346,7 +347,8 @@
                                         </div>
                                         <span class="mx-3">|</span>
 
-                                        <span>3 دیدگاه</span>
+                                        <span> {{ $product->approvedComments()->count() }}
+                                            دیدگاه</span>
                                     </div>
                                     <p class="text-right">
                                         {{ $product->description }}
