@@ -1,7 +1,7 @@
 @extends('home.layouts.home')
 
 @section('title')
-    صفحه نظرات
+    صفحه ای لیست علاقه مندی ها
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
                     <li>
                         <a href="{{ route('home.index') }}">صفحه ای اصلی</a>
                     </li>
-                    <li class="active"> نظرات </li>
+                    <li class="active"> لیست علاقه مندی ها </li>
                 </ul>
             </div>
         </div>
@@ -36,42 +36,51 @@
                                 <div class="tab-content" id="myaccountContent">
 
                                     <div class="myaccount-content">
-                                        <h3> نظرات </h3>
+                                        <h3> لیست علاقه مندی ها </h3>
                                         <div class="review-wrapper">
-                                            @if ($comments->isEmpty())
+                                            @if ($wishlists->isEmpty())
                                                 <div class="alert alert-danger">
-                                                    لیست نظرات شما خالی میباشد
+                                                    لیست علاقه مندی شما خالی میباشد
                                                 </div>
                                             @else
-                                                @foreach ($comments as $comment)
-                                                    <div class="single-review">
-                                                        <div class="review-img">
-                                                            <img src="{{ $comment->user->avatar == null ? asset('images/home/users.png') : $comment->user->avatar }}"
-                                                                alt="">
-                                                        </div>
-                                                        <div class="review-content w-100 text-right">
-                                                            <p class="text-right">
-                                                                {{ $comment->text }}
-                                                            </p>
-                                                            <div class="review-top-wrap">
-                                                                <div class="review-name d-flex align-items-center">
-                                                                    <h4>
-                                                                        برای محصول :
-                                                                    </h4>
-                                                                    <a class="mr-1"
-                                                                        href="{{ route('home.product.show', $comment->product) }}"
-                                                                        style="color:#ff3535;">
-                                                                        {{ $comment->product->name }} </a>
-                                                                </div>
-                                                                <div>
-                                                                    در تاریخ :
-                                                                    {{ verta($comment->created_at)->format('%d %B, %Y') }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
+                                                <div class="table-content table-responsive cart-table-content">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th> تصویر محصول </th>
+                                                                <th> نام محصول </th>
+                                                                <th> حذف </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($wishlists as $wishlist)
+                                                                <tr>
+                                                                    <td class="product-thumbnail">
+                                                                        <a
+                                                                            href="{{ route('home.product.show', $wishlist->product) }}">
+                                                                            <img class="w-100" src="{{ generateProductImageLink($wishlist->product->primary_image) }}"
+                                                                                alt="">
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="product-name"><a
+                                                                            href="{{ route('home.product.show', $wishlist->product) }}">
+                                                                            {{ $wishlist->product->name }}
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="product-name">
+                                                                        <a
+                                                                            href="{{ route('home.wishlist.remove', $wishlist->product) }}">
+                                                                            <i class="sli sli-trash"
+                                                                                style="font-size: 20px"></i> </a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             @endif
+
                                         </div>
                                     </div>
 

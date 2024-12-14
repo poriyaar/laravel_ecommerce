@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Home\WishlistController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Home\UserProfileController;
@@ -70,6 +71,9 @@ Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.product.show');
 Route::post('/comments/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
 
+Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
+Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remove'])->name('home.wishlist.remove');
+
 
 // login
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
@@ -83,6 +87,7 @@ Route::post('/resendOTP', [AuthController::class, 'resendOTP'])->name('resend.ot
 Route::prefix('profile')->name('home.')->group(function() {
     Route::get('/' , [UserProfileController::class , 'index'])->name('user.profile');
     Route::get('/comments' , [HomeCommentController::class , 'usersProfileIndex'])->name('user.profile.comments');
+    Route::get('/wishlist' , [WishlistController::class , 'usersProfileIndex'])->name('user.profile.wishlist');
 });
 
 
