@@ -50,6 +50,11 @@ class Product extends Model
         return $this->variations()->where('quantity', '>', 0)->orderBy('price')->first() ?? false;
     }
 
+    public function checkUserWishlist($userId)
+    {
+        return $this->hasMany(Wishlist::class)->where('user_id' , $userId)->exists();
+    }
+
     /*********************************************\
      *****************start Scope ****************/
 

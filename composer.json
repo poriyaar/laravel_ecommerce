@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "anetwork/validation": "^2.3",
         "cviebrock/eloquent-sluggable": "9.*.*",
+        "darryldecode/cart": "^4.2",
         "guzzlehttp/guzzle": "^7.2",
         "hekmatinasser/verta": "^8.4",
         "laravel/fortify": "^1.19",

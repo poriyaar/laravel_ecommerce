@@ -7,11 +7,14 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Home\WishlistController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Home\UserProfileController;
@@ -70,6 +73,22 @@ Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.product.show');
 Route::post('/comments/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
 
+// wishlist
+Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
+Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remove'])->name('home.wishlist.remove');
+
+// Compare
+Route::get('/compare', [CompareController::class, 'index'])->name('home.compare.index');
+Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name('home.compare.add');
+Route::get('/remove-from-compare/{product}', [CompareController::class, 'remove'])->name('home.compare.remove');
+
+
+// cart
+Route::get('/cart' , [CartController::class , 'index'])->name('home.cart.index');
+Route::post('/add-to-cart' , [CartController::class , 'add'])->name('home.cart.add');
+Route::put('/cart' , [CartController::class , 'update'])->name('home.cart.update');
+Route::get('/remove-from-cart/{rowId}' , [CartController::class , 'remove'])->name('home.cart.remove');
+Route::get('/clear-cart' , [CartController::class , 'clear'])->name('home.cart.clear');
 
 // login
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
@@ -80,15 +99,19 @@ Route::post('/checkOTP', [AuthController::class, 'checkOTP'])->name('check.otp')
 Route::post('/resendOTP', [AuthController::class, 'resendOTP'])->name('resend.otp');
 
 
-Route::prefix('profile')->name('home.')->group(function() {
-    Route::get('/' , [UserProfileController::class , 'index'])->name('user.profile');
-    Route::get('/comments' , [HomeCommentController::class , 'usersProfileIndex'])->name('user.profile.comments');
+Route::prefix('profile')->name('home.')->group(function () {
+    Route::get('/', [UserProfileController::class, 'index'])->name('user.profile');
+    Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('user.profile.comments');
+    Route::get('/wishlist', [WishlistController::class, 'usersProfileIndex'])->name('user.profile.wishlist');
 });
 
 
 Route::get('/test', function () {
-    auth()->logout();
+    // auth()->logout();
+    // session()->flush('compareProducts');
+    \Cart::clear();
 
+    // dd(\Cart::getContent());
 
     // $user = User::find(1);
 
