@@ -12,7 +12,7 @@ class ProductVariation extends Model
 
     protected $table = 'product_variations';
     protected $guarded = [];
-    protected $append = ['is_sale'];
+    protected $appends  = ['is_sale' , 'persent_sale'];
 
 
     public function attribute()
@@ -24,5 +24,10 @@ class ProductVariation extends Model
     public function getIsSaleAttribute()
     {
         return ($this->sale_price != null && $this->date_on_sale_from < now() && $this->date_on_sale_to > now() ? true : false);
+    }
+
+    public function getPersentSaleAttribute()
+    {
+        return $this->is_sale ? round((($this->price - $this->sale_price) / $this->price) * 100)  : null;
     }
 }

@@ -398,7 +398,7 @@
                                     <div class="pro-details-meta">
                                         <span>دسته بندی :</span>
                                         <ul>
-                                            <li><a href="#">{{ $product->category->parent->name }}
+                                            <li><a href="{{ route('home.categories.show' , $product->category) }}">{{ $product->category->parent->name }}
                                                     ،{{ $product->category->name }} </a></li>
                                         </ul>
                                     </div>
