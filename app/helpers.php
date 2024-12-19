@@ -1,6 +1,8 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Order;
+use App\Models\Coupon;
 
 if (!function_exists('generateFileName')) {
     function generateFileName($name)
@@ -78,5 +80,56 @@ if (!function_exists('cartTotalDeliveryAmount')) {
         }
 
         return $cartTotalDeliveryAmount;
+    }
+}
+
+if (!function_exists('cartTotalAmount')) {
+    function cartTotalAmount()
+    {
+
+        if (session()->has('coupon')) {
+
+            if (session()->get('coupon.amount') > (\Cart::getTotal() + cartTotalDeliveryAmount())) {
+                return 0;
+            } else {
+                return (\Cart::getTotal() + cartTotalDeliveryAmount()) - session()->get('coupon.amount');
+            }
+
+        } else {
+            return  \Cart::getTotal() + cartTotalDeliveryAmount();
+        }
+    }
+}
+
+
+if (!function_exists('checkCoupon')) {
+    function checkCoupon($code)
+    {
+        $coupon =  Coupon::whereCode($code)->where('expired_at', '>', now())->first();
+
+        if ($coupon == null) {
+            return ["error" => "کد تخفیف وجود ندارد"];
+        }
+
+
+        if (Order::where('user_id', auth()->id())->where('coupon_id', $coupon->id)->where('payment_Status', 1)->exists()) {
+            return ['error' => 'این کوپن استفاده شده است'];
+        }
+
+
+        if ($coupon->getRawOriginal('type') == 'amount') {
+
+            session()->put('coupon', ['code' => $coupon->code, 'amount' => $coupon->amount]);
+        } else {
+
+            $total = \Cart::getTotal();
+
+
+            $amount =  (($total * $coupon->percentage) / 100) > $coupon->max_percentage_amount ? $coupon->max_percentage_amount : (($total * $coupon->percentage) / 100);
+
+            session()->put('coupon', ['code' => $coupon->code, 'amount' => $amount]);
+        }
+
+        return ['success' => 'کد تخفیف برای شما ثبت شد'];
     }
 }
