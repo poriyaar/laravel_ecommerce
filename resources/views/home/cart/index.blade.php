@@ -84,7 +84,8 @@
                                                 </td>
                                                 <td class="product-quantity">
                                                     <div class="cart-plus-minus">
-                                                        <input class="cart-plus-minus-box" type="text" name="qtybutton[{{ $item->id }}]"
+                                                        <input class="cart-plus-minus-box" type="text"
+                                                            name="qtybutton[{{ $item->id }}]"
                                                             value="{{ $item->quantity }}"
                                                             data-max="{{ $item->attributes->quantity }}">
                                                     </div>
@@ -94,7 +95,8 @@
                                                     تومان
                                                 </td>
                                                 <td class="product-remove">
-                                                    <a href="{{ route('home.cart.remove' , $item->id) }}"><i class="sli sli-close"></i></a>
+                                                    <a href="{{ route('home.cart.remove', $item->id) }}"><i
+                                                            class="sli sli-close"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -125,8 +127,9 @@
                                     </div>
                                     <div class="discount-code">
                                         <p> لورم ایپسوم متن ساختگی با تولید سادگی </p>
-                                        <form>
-                                            <input type="text" required="" name="name">
+                                        <form action="{{ route('home.coupons.check') }}" method="POST">
+                                            @csrf
+                                            <input type="text" required="" name="code">
                                             <button class="cart-btn-2" type="submit"> ثبت </button>
                                         </form>
                                     </div>
@@ -156,12 +159,24 @@
                                             </span>
                                         </h5>
                                     @endif
+
+                                    @if (session()->has('coupon'))
+                                        <hr>
+                                        <h5>
+                                            مبلغ کد تخفیف :
+                                            <span style="color: red">
+                                                {{ number_format(session()->get('coupon.amount')) }}
+                                                تومان
+                                            </span>
+                                        </h5>
+                                    @endif
+
                                     <div class="total-shipping">
                                         <h5>
                                             هزینه ارسال :
                                             @if (cartTotalDeliveryAmount() == 0)
                                                 <span style="color: red">
-                                                 رایگان
+                                                    رایگان
                                                 </span>
                                             @else
                                                 <span>
@@ -175,7 +190,7 @@
                                     <h4 class="grand-totall-title">
                                         جمع کل:
                                         <span>
-                                            {{ number_format(\Cart::getTotal() + cartTotalDeliveryAmount()) }}
+                                            {{ number_format(cartTotalAmount()) }}
                                             تومان
                                         </span>
                                     </h4>

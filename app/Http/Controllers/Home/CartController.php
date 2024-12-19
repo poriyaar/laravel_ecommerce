@@ -98,4 +98,26 @@ class CartController extends Controller
         alert()->warning('با تشکر', 'سبد خرید شما خالی شد');
         return redirect()->back();
     }
+
+    public function checkCoupon(Request $request)
+    {
+        $request->validate([
+            'code' => 'required'
+        ]);
+
+        if (!auth()->check()) {
+            alert()->error('با تشکر', 'برای اعمال کد تخفیف ابتدا وارد سایت شوید');
+            return redirect()->back();
+        }
+
+        $result = checkCoupon($request->code);
+
+        if (array_key_exists('error', $result)) {
+            alert()->error('دقت کنید', $result['error']);
+        } else {
+            alert()->success('با تشکر', $result['success']);
+        }
+
+        return redirect()->back();
+    }
 }

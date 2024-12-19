@@ -11,6 +11,7 @@ use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
@@ -49,6 +50,7 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('banners', BannerController::class);
     Route::resource('comments', CommentController::class);
+    Route::resource('coupons', CouponController::class);
 
     // change comment approved
     Route::get('/comments/{comment}/changeStatus', [CommentController::class, 'changeStatus'])->name('comment.change.status');
@@ -89,6 +91,7 @@ Route::post('/add-to-cart' , [CartController::class , 'add'])->name('home.cart.a
 Route::put('/cart' , [CartController::class , 'update'])->name('home.cart.update');
 Route::get('/remove-from-cart/{rowId}' , [CartController::class , 'remove'])->name('home.cart.remove');
 Route::get('/clear-cart' , [CartController::class , 'clear'])->name('home.cart.clear');
+Route::post('/check-coupon' , [CartController::class , 'checkCoupon'])->name('home.coupons.check');
 
 // login
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
@@ -109,7 +112,7 @@ Route::prefix('profile')->name('home.')->group(function () {
 Route::get('/test', function () {
     // auth()->logout();
     // session()->flush('compareProducts');
-    \Cart::clear();
+    // \Cart::clear();
 
     // dd(\Cart::getContent());
 
