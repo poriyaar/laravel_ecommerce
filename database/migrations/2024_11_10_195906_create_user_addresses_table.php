@@ -18,6 +18,7 @@ return new class extends Migration
 
             $table->string('title');
             $table->string('address');
+            $table->string('cellphone');
             $table->string('postal_code');
 
             $table->foreignId('user_id');

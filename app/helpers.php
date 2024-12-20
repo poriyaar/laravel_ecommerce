@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\City;
 use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Coupon;
+use App\Models\Province;
 
 if (!function_exists('generateFileName')) {
     function generateFileName($name)
@@ -94,7 +96,6 @@ if (!function_exists('cartTotalAmount')) {
             } else {
                 return (\Cart::getTotal() + cartTotalDeliveryAmount()) - session()->get('coupon.amount');
             }
-
         } else {
             return  \Cart::getTotal() + cartTotalDeliveryAmount();
         }
@@ -131,5 +132,20 @@ if (!function_exists('checkCoupon')) {
         }
 
         return ['success' => 'کد تخفیف برای شما ثبت شد'];
+    }
+}
+
+
+if (!function_exists('province_name')) {
+    function province_name($id)
+    {
+        return Province::findOrFail($id)->name;
+    }
+}
+
+if (!function_exists('city_name')) {
+    function city_name($id)
+    {
+        return City::findOrFail($id)->name;
     }
 }

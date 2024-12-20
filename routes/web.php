@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Home\UserProfileController;
 use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Home\AddressController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
@@ -86,12 +87,13 @@ Route::get('/remove-from-compare/{product}', [CompareController::class, 'remove'
 
 
 // cart
-Route::get('/cart' , [CartController::class , 'index'])->name('home.cart.index');
-Route::post('/add-to-cart' , [CartController::class , 'add'])->name('home.cart.add');
-Route::put('/cart' , [CartController::class , 'update'])->name('home.cart.update');
-Route::get('/remove-from-cart/{rowId}' , [CartController::class , 'remove'])->name('home.cart.remove');
-Route::get('/clear-cart' , [CartController::class , 'clear'])->name('home.cart.clear');
-Route::post('/check-coupon' , [CartController::class , 'checkCoupon'])->name('home.coupons.check');
+Route::get('/cart', [CartController::class, 'index'])->name('home.cart.index');
+Route::post('/add-to-cart', [CartController::class, 'add'])->name('home.cart.add');
+Route::put('/cart', [CartController::class, 'update'])->name('home.cart.update');
+Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
+Route::get('/clear-cart', [CartController::class, 'clear'])->name('home.cart.clear');
+Route::post('/check-coupon', [CartController::class, 'checkCoupon'])->name('home.coupons.check');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('home.orders.checkout');
 
 // login
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
@@ -106,8 +108,12 @@ Route::prefix('profile')->name('home.')->group(function () {
     Route::get('/', [UserProfileController::class, 'index'])->name('user.profile');
     Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('user.profile.comments');
     Route::get('/wishlist', [WishlistController::class, 'usersProfileIndex'])->name('user.profile.wishlist');
+    Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
+    Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
+    Route::put('/addresses/{address}', [AddressController::class, 'update'])->name('addresses.update');
 });
 
+Route::get('/get-province-cities-list', [AddressController::class, 'getProvinceCitiesList']);
 
 Route::get('/test', function () {
     // auth()->logout();

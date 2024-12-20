@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\ProductVariation;
+use App\Models\Province;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
+use App\Models\ProductVariation;
+use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
@@ -119,5 +121,18 @@ class CartController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function checkout()
+    {
+        if (\Cart::isEmpty()) {
+            alert()->warning('دقت کنید', 'سبد خرید شما خالی میباشد');
+            return redirect()->route('home.index');
+        }
+
+        $provinces = Province::all();
+        $addresses  = UserAddress::where('user_id', auth()->id())->get();
+
+        return view('home.cart.checkout', compact('provinces', 'addresses'));
     }
 }
