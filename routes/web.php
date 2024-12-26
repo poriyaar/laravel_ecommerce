@@ -80,6 +80,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.product.show');
 Route::post('/comments/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
+Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('home.about.us');
+Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('home.contact.us');
+Route::post('/contact-us/form', [HomeController::class, 'contactUsForm'])->name('home.contact.us.form');
+
 
 // wishlist
 Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');

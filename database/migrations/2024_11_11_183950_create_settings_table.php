@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('telephone');
             $table->string('telephone2')->nullable();
             $table->string('longitude')->nullable();
+            $table->string('latitude')->nullable();
             $table->string('instagram')->nullable();
             $table->string('telegram')->nullable();
             $table->string('facebook')->nullable();
