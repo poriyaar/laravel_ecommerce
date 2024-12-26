@@ -24,6 +24,7 @@ use App\Http\Controllers\Home\AddressController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
+use App\Http\Controllers\Home\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +95,10 @@ Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name
 Route::get('/clear-cart', [CartController::class, 'clear'])->name('home.cart.clear');
 Route::post('/check-coupon', [CartController::class, 'checkCoupon'])->name('home.coupons.check');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('home.orders.checkout');
+
+// payment
+Route::post('/payment', [PaymentController::class, 'payment'])->name('home.payment.index');
+Route::get('/payment-verify/{gatewayName}', [PaymentController::class, 'paymentVerify'])->name('home.payment.veryfy');
 
 // login
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
