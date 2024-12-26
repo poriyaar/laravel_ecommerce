@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Province;
 use App\Models\UserAddress;
@@ -134,5 +135,12 @@ class CartController extends Controller
         $addresses  = UserAddress::where('user_id', auth()->id())->get();
 
         return view('home.cart.checkout', compact('provinces', 'addresses'));
+    }
+
+    public function userProfileOrders()
+    {
+        $orders =  Order::where('user_id' , auth()->id())->latest()->get();
+
+        return view('home.users_profile.orders' , compact('orders'));
     }
 }

@@ -141,6 +141,8 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header"> سفارشات </h6>
+                <a class="collapse-item" href="{{ route('admin.orders.index') }}">سفارشات</a>
+                <a class="collapse-item" href="{{ route('admin.transactions.index') }}">تراکنش ها</a>
                 <a class="collapse-item" href="{{ route('admin.coupons.index') }}">کوپن ها</a>
 
             </div>

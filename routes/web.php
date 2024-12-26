@@ -10,21 +10,23 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Home\AddressController;
 use App\Http\Controllers\Home\CompareController;
+use App\Http\Controllers\Home\PaymentController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Home\WishlistController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Home\UserProfileController;
+use App\Http\Controllers\Admin\TransActionController;
 use App\Http\Controllers\Admin\ProductImageController;
-use App\Http\Controllers\Home\AddressController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
-use App\Http\Controllers\Home\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +55,8 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('banners', BannerController::class);
     Route::resource('comments', CommentController::class);
     Route::resource('coupons', CouponController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('transactions', TransActionController::class);
 
     // change comment approved
     Route::get('/comments/{comment}/changeStatus', [CommentController::class, 'changeStatus'])->name('comment.change.status');
@@ -116,6 +120,9 @@ Route::prefix('profile')->name('home.')->group(function () {
     Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
     Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
     Route::put('/addresses/{address}', [AddressController::class, 'update'])->name('addresses.update');
+
+    Route::get('/orders', [CartController::class, 'userProfileOrders'])->name('user.profile.orders');
+
 });
 
 Route::get('/get-province-cities-list', [AddressController::class, 'getProvinceCitiesList']);
