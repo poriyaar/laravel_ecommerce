@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Home;
 
 use App\Models\Banner;
 use App\Models\Product;
+use App\Models\Setting;
+use App\Models\ContactUs;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\ContactUs;
-use App\Models\Setting;
+use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
 class HomeController extends Controller
 {
@@ -44,12 +45,12 @@ class HomeController extends Controller
 
     public function contactUsForm(Request $request)
     {
-
         $request->validate([
             'name' => 'required|string|min:4|max:50',
             'email' => 'required|email',
             'subject' => 'required|string|min:4|max:500',
             'text' => 'required|string|min:4|max:5000',
+            'g-recaptcha-response' => [new GoogleReCaptchaV3ValidationRule('contact_us')]
         ]);
 
         ContactUs::create([

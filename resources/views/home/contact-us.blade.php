@@ -88,9 +88,16 @@
                                     <strong>{{ $message }}</strong>
                                 </p>
                             @enderror
+                            <div id="contact_us_id"></div> {{-- add div with id --}}
+                            @error('g-recaptcha-response')
+                                <p class="input-error-validation">
+                                    <strong>{{ $message }}</strong>
+                                </p>
+                            @enderror
                             <button class="submit" type="submit"> ارسال پیام </button>
                         </form>
-                        <p class="form-messege"></p>
+                        {!! GoogleReCaptchaV3::render(['contact_us_id' => 'contact_us']) !!}
+                        {{-- {!! GoogleReCaptchaV3::render(['contact_us_id' => 'contact_us', 'signup_id' => 'signup']) !!} --}}
                     </div>
                 </div>
             </div>
@@ -108,8 +115,7 @@
 @section('scripts')
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="">
-    </script>
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
         var map = L.map('map').setView([{{ $settingData->latitude }}, {{ $settingData->longitude }}], 12);
