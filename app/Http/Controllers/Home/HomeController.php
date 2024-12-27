@@ -8,12 +8,30 @@ use App\Models\Setting;
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Artesaos\SEOTools\Facades\SEOTools;
 use TimeHunter\LaravelGoogleReCaptchaV3\Validations\GoogleReCaptchaV3ValidationRule;
 
 class HomeController extends Controller
 {
     public function index()
     {
+
+
+        SEOTools::setTitle('Home');
+        SEOTools::setDescription('This is my page description');
+        SEOTools::setCanonical('https://codecasts.com.br/lesson');
+
+
+        SEOTools::opengraph()->setUrl(route('home.index'));
+        SEOTools::opengraph()->setDescription('set description');
+        // SEOTools::opengraph()->addProperty('description', 'myWeb');
+        SEOTools::opengraph()->addProperty('type', 'articles');
+
+
+        SEOTools::twitter()->setSite('@LuizVinicius73');
+        SEOTools::jsonLd()->addImage('https://codecasts.com.br/img/logo.jpg');
+
+
         $sliders = Banner::whereType('slider')->where('is_active', 1)->orderBy('priority')->get();
         $indexTopBanners = Banner::whereType('index-top')->where('is_active', 1)->orderBy('priority')->get()->chunk(3)->first();
         $indexBottomBanners = Banner::whereType('index-top')->where('is_active', 1)->orderBy('priority')->get()->chunk(3)->last();
