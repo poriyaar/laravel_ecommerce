@@ -1,6 +1,11 @@
 @extends('home.layouts.home')
 @section('title', 'صفحه تماس با ما')
 
+@section('style')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+@endsection
+
 @section('content')
     <div class="breadcrumb-area pt-35 pb-35 bg-gray" style="direction: rtl;">
         <div class="container">
@@ -55,8 +60,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="col-lg-7 col-md-6">
                     <div class="contact-from contact-shadow">
                         <form id="contact-form" action="{{ route('home.contact.us.form') }}" method="post">
@@ -93,9 +96,31 @@
             </div>
 
 
+
+
             <div class="contact-map pt-100">
                 <div id="map"></div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="">
+    </script>
+
+    <script>
+        var map = L.map('map').setView([{{ $settingData->latitude }}, {{ $settingData->longitude }}], 12);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var marker = L.marker([{{ $settingData->latitude }}, {{ $settingData->longitude }}]).addTo(map);
+
+        marker.bindPopup("<b>عمو حسن!</b><br>هنگام شنا مثه یه دست و پا چلفتی بپا به مسیر دهن کوسه نیفتی.").openPopup();
+    </script>
 @endsection
