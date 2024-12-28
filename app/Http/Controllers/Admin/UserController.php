@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -16,7 +18,9 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        $roles = Role::all();
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
 
@@ -27,10 +31,21 @@ class UserController extends Controller
             'cellphone' => 'nullable',
         ]);
 
-        $user->update([
-            'name' => $request->name,
-            'cellphone' => $request->cellphone
-        ]);
+        try {
+            DB::beginTransaction();
+            $user->update([
+                'name' => $request->name,
+                'cellphone' => $request->cellphone
+            ]);
+
+            $user->syncRoles($request->role);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            alert()->error('مشکل در ویرایش کاربر', $e->getMessage())->persistent('حله');
+            return redirect()->back();
+        }
 
         alert('با تشکر', 'کاربر مورد نظر ویرایش شد', 'success');
         return redirect()->route('admin.users.index');

@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
@@ -21,10 +23,10 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Home\WishlistController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Home\UserProfileController;
 use App\Http\Controllers\Admin\TransActionController;
 use App\Http\Controllers\Admin\ProductImageController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
@@ -59,6 +61,8 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('orders', OrderController::class);
     Route::resource('transactions', TransActionController::class);
     Route::resource('users', UserController::class);
+    Route::resource('permissions', PermissionController::class);
+    Route::resource('roles', RoleController::class);
 
     // change comment approved
     Route::get('/comments/{comment}/changeStatus', [CommentController::class, 'changeStatus'])->name('comment.change.status');

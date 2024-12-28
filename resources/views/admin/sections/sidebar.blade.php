@@ -109,7 +109,8 @@
                 <h6 class="collapse-header"> کاربران : </h6>
                 <a class="collapse-item" href="{{ route('admin.users.index') }}">لیست کاربران</a>
                 <a class="collapse-item" href="#">گروه های کاربری</a>
-                <a class="collapse-item" href="#">مجوز ها</a>
+                <a class="collapse-item" href="{{ route('admin.permissions.index') }}">مجوز ها</a>
+                <a class="collapse-item" href="{{ route('admin.roles.index') }}">نقش ها</a>
             </div>
         </div>
     </li>
