@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Home\UserProfileController;
 use App\Http\Controllers\Admin\TransActionController;
 use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
@@ -57,6 +58,7 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('coupons', CouponController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('transactions', TransActionController::class);
+    Route::resource('users', UserController::class);
 
     // change comment approved
     Route::get('/comments/{comment}/changeStatus', [CommentController::class, 'changeStatus'])->name('comment.change.status');
