@@ -47,7 +47,7 @@ Route::get('/admin-panel/dashboard', function () {
 })->name('dashboard');
 
 
-Route::prefix('admin-panel/management')->name('admin.')->group(function () {
+Route::prefix('admin-panel/management')->name('admin.')->middleware(['role:admin|writer'])->group(function () {
 
 
     Route::resource('brands', BrandController::class);

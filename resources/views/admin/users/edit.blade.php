@@ -41,6 +41,38 @@
                         </select>
                     </div>
 
+                    <div class="accordion col-md-12 mt-3" id="accordionPermission">
+                        <div class="card">
+                            <div class="card-header p-1" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-right" type="button" data-toggle="collapse"
+                                        data-target="#collapsPermission" aria-expanded="true" aria-controls="collapseOne">
+                                        مجوز های دسترسی
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapsPermission" class="collapse show" aria-labelledby="headingOne"
+                                data-parent="#accordionPermission">
+                                <div class="card-body row">
+
+                                    @foreach ($permissions as $permission)
+                                        <div class="form-group form-check col-md-3">
+                                            <input type="checkbox" class="form-check-input"
+                                                id="permission-{{ $permission->id }}" name="{{ $permission->name }}"
+                                                value="{{ $permission->name }}"
+                                                {{ in_array($permission->id, $user->permissions->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                            <label class="form-check-label mr-3" for="permission-{{ $permission->id }}">
+                                                {{ $permission->display_name }}</label>
+                                        </div>
+                                    @endforeach
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <button type="submit" class="btn btn-outline-primary mt-5">ویرایش</button>
