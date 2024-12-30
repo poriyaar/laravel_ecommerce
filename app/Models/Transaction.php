@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,5 +34,13 @@ class Transaction extends Model
         }
 
         return $status;
+    }
+
+    public function scopeGetData($query , $month , $status)
+    {
+        $v = verta()->startMonth()->subMonths($month - 1);
+        $date = verta()->jalaliToGregorian($v->year, $v->month, $v->day);
+
+        return $query->where('created_at', '>', Carbon::create($date[0], $date[1], $date[2], 0, 0, 0))->orderBy('created_at' , 'asc')->where('status', $status)->get();;
     }
 }

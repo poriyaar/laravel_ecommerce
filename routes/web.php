@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Models\User;
 use App\Models\Product;
 use App\Notifications\OTPSms;
@@ -42,9 +43,7 @@ use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 |
 */
 
-Route::get('/admin-panel/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
+Route::get('/admin-panel/dashboard', [AdminController::class , 'index'])->name('dashboard');
 
 
 Route::prefix('admin-panel/management')->name('admin.')->middleware(['role:admin|writer'])->group(function () {
