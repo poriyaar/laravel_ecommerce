@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\City;
 use Carbon\Carbon;
+use App\Models\Order;
+use App\Models\Coupon;
+use App\Models\Province;
 
 if (!function_exists('generateFileName')) {
     function generateFileName($name)
@@ -78,5 +82,72 @@ if (!function_exists('cartTotalDeliveryAmount')) {
         }
 
         return $cartTotalDeliveryAmount;
+    }
+}
+
+if (!function_exists('cartTotalAmount')) {
+    function cartTotalAmount()
+    {
+
+        if (session()->has('coupon')) {
+
+            if (session()->get('coupon.amount') > (\Cart::getTotal() + cartTotalDeliveryAmount())) {
+                return 0;
+            } else {
+                return (\Cart::getTotal() + cartTotalDeliveryAmount()) - session()->get('coupon.amount');
+            }
+        } else {
+            return  \Cart::getTotal() + cartTotalDeliveryAmount();
+        }
+    }
+}
+
+
+if (!function_exists('checkCoupon')) {
+    function checkCoupon($code)
+    {
+        $coupon =  Coupon::whereCode($code)->where('expired_at', '>', now())->first();
+
+        if ($coupon == null) {
+            session()->forget('coupon');
+            return ["error" => "کد تخفیف وجود ندارد"];
+        }
+
+
+        if (Order::where('user_id', auth()->id())->where('coupon_id', $coupon->id)->where('payment_Status', 1)->exists()) {
+            session()->forget('coupon');
+            return ['error' => 'این کوپن استفاده شده است'];
+        }
+
+
+        if ($coupon->getRawOriginal('type') == 'amount') {
+
+            session()->put('coupon', ['id' => $coupon->id,'code' => $coupon->code, 'amount' => $coupon->amount]);
+        } else {
+
+            $total = \Cart::getTotal();
+
+
+            $amount =  (($total * $coupon->percentage) / 100) > $coupon->max_percentage_amount ? $coupon->max_percentage_amount : (($total * $coupon->percentage) / 100);
+
+            session()->put('coupon', ['id' => $coupon->id,'code' => $coupon->code, 'amount' => $amount]);
+        }
+
+        return ['success' => 'کد تخفیف برای شما ثبت شد'];
+    }
+}
+
+
+if (!function_exists('province_name')) {
+    function province_name($id)
+    {
+        return Province::findOrFail($id)->name;
+    }
+}
+
+if (!function_exists('city_name')) {
+    function city_name($id)
+    {
+        return City::findOrFail($id)->name;
     }
 }

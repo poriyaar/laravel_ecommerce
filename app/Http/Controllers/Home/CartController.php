@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Product;
-use App\Models\ProductVariation;
+use App\Models\Province;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
+use App\Models\ProductVariation;
+use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
@@ -97,5 +100,47 @@ class CartController extends Controller
 
         alert()->warning('با تشکر', 'سبد خرید شما خالی شد');
         return redirect()->back();
+    }
+
+    public function checkCoupon(Request $request)
+    {
+        $request->validate([
+            'code' => 'required'
+        ]);
+
+        if (!auth()->check()) {
+            alert()->error('با تشکر', 'برای اعمال کد تخفیف ابتدا وارد سایت شوید');
+            return redirect()->back();
+        }
+
+        $result = checkCoupon($request->code);
+
+        if (array_key_exists('error', $result)) {
+            alert()->error('دقت کنید', $result['error']);
+        } else {
+            alert()->success('با تشکر', $result['success']);
+        }
+
+        return redirect()->back();
+    }
+
+    public function checkout()
+    {
+        if (\Cart::isEmpty()) {
+            alert()->warning('دقت کنید', 'سبد خرید شما خالی میباشد');
+            return redirect()->route('home.index');
+        }
+
+        $provinces = Province::all();
+        $addresses  = UserAddress::where('user_id', auth()->id())->get();
+
+        return view('home.cart.checkout', compact('provinces', 'addresses'));
+    }
+
+    public function userProfileOrders()
+    {
+        $orders =  Order::where('user_id' , auth()->id())->latest()->get();
+
+        return view('home.users_profile.orders' , compact('orders'));
     }
 }

@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion pr-0" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -97,6 +97,34 @@
             <span> نمودار ها </span></a>
     </li> --}}
 
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-users"></i>
+            <span> کاربران </span>
+        </a>
+        <div id="collapseUser"
+            class="collapse
+        {{ request()->is('admin-panel/management/users*') ? 'show' : '' }}
+        {{ request()->is('admin-panel/management/permissions*') ? 'show' : '' }}
+        {{ request()->is('admin-panel/management/roles*') ? 'show' : '' }}
+         "
+            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header"> کاربران : </h6>
+                <a class="collapse-item {{ request()->is('admin-panel/management/users*') ? 'active' : '' }}"
+                    href="{{ route('admin.users.index') }}">لیست کاربران</a>
+                <a class="collapse-item {{ request()->is('admin-panel/management/permissions**') ? 'active' : '' }}"
+                    href="{{ route('admin.permissions.index') }}">مجوز ها</a>
+                <a class="collapse-item {{ request()->is('admin-panel/management/roles*') ? 'active' : '' }}"
+                    href="{{ route('admin.roles.index') }}">نقش ها</a>
+            </div>
+        </div>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.brands.index') }}">
@@ -106,23 +134,82 @@
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
+    {{-- @can('create-product')
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
+                aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-cart-plus"></i>
+                <span> محصولات </span>
+            </a>
+            <div id="collapseProducts" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.products.index') }}">محصولات</a>
+                    <a class="collapse-item" href="{{ route('admin.categories.index') }}">دسته بندی ها</a>
+                    <a class="collapse-item" href="{{ route('admin.tags.index') }}">تگ ها</a>
+                    <a class="collapse-item" href="{{ route('admin.attributes.index') }}">ویژگی ها</a>
+                    <a class="collapse-item" href="{{ route('admin.comments.index') }}">نظرات</a>
+                </div>
+            </div>
+        </li>
+    @endcan --}}
+    @role('admin')
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
+                aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-cart-plus"></i>
+                <span> محصولات </span>
+            </a>
+            <div id="collapseProducts" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.products.index') }}">محصولات</a>
+                    <a class="collapse-item" href="{{ route('admin.categories.index') }}">دسته بندی ها</a>
+                    <a class="collapse-item" href="{{ route('admin.tags.index') }}">تگ ها</a>
+                    <a class="collapse-item" href="{{ route('admin.attributes.index') }}">ویژگی ها</a>
+                    <a class="collapse-item" href="{{ route('admin.comments.index') }}">نظرات</a>
+                </div>
+            </div>
+        </li>
+    @endrole
+
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        سفارشات
+    </div>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
-            aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-cart-plus"></i>
-            <span> محصولات </span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw  fa-shopping-cart"></i>
+            <span> سفارشات </span>
         </a>
-        <div id="collapseProducts" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseUtilities" class="collapse
+        {{ request()->is('admin-panel/management/orders*') ? 'show' : '' }}
+        {{ request()->is('admin-panel/management/transactions*') ? 'show' : '' }}
+        {{ request()->is('admin-panel/management/coupons*') ? 'show' : '' }}
+
+        " aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.products.index') }}">محصولات</a>
-                <a class="collapse-item" href="{{ route('admin.categories.index') }}">دسته بندی ها</a>
-                <a class="collapse-item" href="{{ route('admin.tags.index') }}">تگ ها</a>
-                <a class="collapse-item" href="{{ route('admin.attributes.index') }}">ویژگی ها</a>
-                <a class="collapse-item" href="{{ route('admin.comments.index') }}">نظرات</a>
+                <h6 class="collapse-header"> سفارشات </h6>
+                <a class="collapse-item {{ request()->is('admin-panel/management/orders*') ? 'active' : '' }}" href="{{ route('admin.orders.index') }}">سفارشات</a>
+                <a class="collapse-item {{ request()->is('admin-panel/management/transactions*') ? 'active' : '' }}" href="{{ route('admin.transactions.index') }}">تراکنش ها</a>
+                <a class="collapse-item {{ request()->is('admin-panel/management/coupons*') ? 'active' : '' }}" href="{{ route('admin.coupons.index') }}">کوپن ها</a>
+
             </div>
         </div>
     </li>
 
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        تنظیمات
+    </div>
 
     <!-- Nav Item - Banners -->
     <li class="nav-item active">

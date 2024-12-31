@@ -9,21 +9,29 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Webprog.ir - @yield('title')</title>
+    <title>myWeb.net - @yield('title')</title>
 
 
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+    @yield('style')
 
+    {!! SEO::generate() !!}
 </head>
 
 <body>
 
 
-    {{-- @yield('content') --}}
+    <div class="wrapper text-center">
 
-    <div class="wrapper">
+
+        <div id="overlayer"></div>
+        <span class="loader">
+            <span class="loader-inner"></span>
+        </span>
+
+
 
         {{-- include header --}}
         @include('home.sections.header')
@@ -37,21 +45,31 @@
 
 
         {{-- include footer --}}
-       @include('home.sections.footer')
+        @include('home.sections.footer')
 
 
 
 
 
-    <!-- JavaScript-->
-    <script src="{{ asset('js/home/jquery-1.12.4.min.js') }}"></script>
-    <script src="{{ asset('js/home/plugins.js') }}"></script>
-    <script src="{{ asset('js/home.js') }}"></script>
+        <!-- JavaScript-->
+        <script src="{{ asset('js/home/jquery-1.12.4.min.js') }}"></script>
+        <script src="{{ asset('js/home/plugins.js') }}"></script>
+        <script src="{{ asset('js/home.js') }}"></script>
 
-    @include('sweetalert::alert')
+        @include('sweetalert::alert')
 
 
-    @yield('scripts')
+        @yield('scripts')
+
+        <script>
+            $(window).load(function() {
+                $(".loader").delay(2000).fadeOut("slow");
+                $("#overlayer").delay(2000).fadeOut("slow")
+            })
+        </script>
+
+
+        {!! GoogleReCaptchaV3::init() !!}
 
 </body>
 

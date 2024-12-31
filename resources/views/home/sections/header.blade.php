@@ -15,10 +15,10 @@
                         <nav>
                             <ul>
                                 <li class="angle-shape">
-                                    <a href="about_us.html"> ارتباط با ما </a>
+                                    <a href="{{ route('home.about.us') }}"> درباره ما </a>
                                 </li>
 
-                                <li><a href="contact-us.html"> تماس با ما </a></li>
+                                <li><a href="{{ route('home.contact.us') }}"> تماس با ما </a></li>
 
                                 <li class="angle-shape">
                                     <a href="#"> فروشگاه </a>
@@ -147,7 +147,7 @@
                                             </span>
                                         </div>
                                         <div class="shopping-cart-btn btn-hover text-center">
-                                            <a class="default-btn" href="#">
+                                            <a class="default-btn" href="{{ route('home.orders.checkout') }}">
                                                 ثبت سفارش
                                             </a>
                                             <a class="default-btn" href="{{ route('home.cart.index') }}">
@@ -301,7 +301,7 @@
                                             </span>
                                         </div>
                                         <div class="shopping-cart-btn btn-hover text-center">
-                                            <a class="default-btn" href="#">
+                                            <a class="default-btn" href="{{ route('home.orders.checkout') }}">
                                                 ثبت سفارش
                                             </a>
                                             <a class="default-btn" href="{{ route('home.cart.index') }}">

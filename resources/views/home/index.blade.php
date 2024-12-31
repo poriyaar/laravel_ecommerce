@@ -339,7 +339,7 @@
                             <div class="col-md-7 col-sm-12 col-xs-12" style="direction: rtl;">
                                 <div class="product-details-content quickview-content">
                                     <h2 class="text-right mb-4">{{ $product->name }}</h2>
-                                    <div class="product-details-price variations-price">
+                                    <div class="product-details-price variations-price-{{ $product->id }}">
                                         <span>
                                             @if ($product->quantity_check)
                                                 @if ($product->sale_check)
@@ -403,7 +403,7 @@
                                                 <div class="pro-details-size  w-50">
                                                     <span>{{ $product->variations->first()->attribute->name }}</span>
 
-                                                    <select name="variation" class="form-control variation-select">
+                                                    <select name="variation" class="form-control variation-select" data-id="{{ $product->id }}" >
                                                         @foreach ($product->variations()->where('quantity', '>', 0)->get() as $variation)
                                                             <option
                                                                 value="{{ json_encode($variation->only(['id', 'quantity', 'is_sale', 'sale_price', 'price'])) }}"
@@ -522,7 +522,8 @@
     <script>
         $('.variation-select').on('change', function() {
             let variaction = JSON.parse(this.value);
-            let variationsPriceDiv = $('.variations-price');
+
+            let variationsPriceDiv = $('.variations-price-' + $(this).data('id'));
             variationsPriceDiv.empty();
 
             if (variaction.is_sale) {

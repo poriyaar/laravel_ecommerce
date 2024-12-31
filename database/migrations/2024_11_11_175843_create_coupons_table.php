@@ -21,8 +21,8 @@ return new class extends Migration
 
             $table->enum('type' , ['amount' , 'percentage']);
 
-            $table->unsignedInteger('amount');
-            $table->unsignedInteger('percentage');
+            $table->unsignedInteger('amount')->nullable();
+            $table->unsignedInteger('percentage')->nullable();
             $table->unsignedInteger('max_percentage_amount')->nullable();
 
             $table->timestamp('expired_at');
